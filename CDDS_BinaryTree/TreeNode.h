@@ -88,17 +88,22 @@ inline bool TreeNode<T>::hasRight()
 template<typename T>
 inline void TreeNode<T>::draw(int x, int y, bool selected)
 {
+	//Creates an array to store the string representation of the value
 	static char buffer[10];
 
+	//Converts the value into a string and stores it in the array
 	sprintf(buffer, "%d", m_value);
 
+	//Draws a circle to represent the node
 	DrawCircle(x, y, 30, YELLOW);
 	
+	//if the node is the current selected node change it's color
 	if (selected)
 		DrawCircle(x, y, 28, GREEN);
 	else
 		DrawCircle(x, y, 28, BLACK);
 
-	DrawText(buffer, x - 12, y - 12, WHITE);
+	//Draw the value of the node inside the circle
+	DrawText(buffer, x - 12, y - 12, 12, WHITE);
 
 }

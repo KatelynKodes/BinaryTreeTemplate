@@ -58,6 +58,32 @@ private:
 template<typename T>
 inline bool BinaryTree<T>::findNode(T searchValue, TreeNode<T>*& nodeFound, TreeNode<T>*& nodeParent)
 {
+	if (!isEmpty())
+	{
+		TreeNode<T>* currNode = m_root;
+		nodeParent = nullptr;
+		nodeFound = nullptr;
+
+		while (currNode != nullptr)
+		{
+			if (searchValue == currNode->getData())
+			{
+				nodeFound = currNode;
+				return true;
+			}
+			else if (searchValue < currNode->getData())
+			{
+				nodeParent = currNode;
+				currNode = currNode->getLeft()
+			}
+			else if (searchValue > currNode->getData())
+			{
+				nodeParent = currNode;
+				currNode = currNode->getRight();
+			}
+		}
+	}
+
 	return false;
 }
 
@@ -129,31 +155,31 @@ inline void BinaryTree<T>::insert(T value)
 	if (isEmpty())
 	{
 		//Set the root to be this new node
-		m_root = new TreeNode<T>*(value);
+		m_root = new TreeNode<T>(value);
 	}
 	else
 	{
 		//Create two treeNode pointers pointing to the currentNode and the new node that is being added
 		TreeNode<T>* currNode = m_root;
-		TreeNode<T>* NewNode = new TreeNode<T>*(value);
+		TreeNode<T>* NewNode = new TreeNode<T>(value);
 
 		//While the currNode is not nullptr
 		while(currNode != nullptr)
 		{
 			//If the value is less than the current node...
-			if (value < currNode)
+			if (value < currNode->getData())
 			{
 				//If the current node has a left...
-				if (currNode.hasLeft())
+				if (currNode->hasLeft())
 				{
 					//If the value is greater than the current node's left value
 					if (value > currNode->getLeft()->getData())
 					{
 						//Set the newNode's left to be equal to the current Node's left
-						NewNode->getLeft() = currNode->getLeft();
+						NewNode->setLeft(currNode->getLeft());
 
 						//Then set the current Node's left to be the NewNode.
-						currNode->getLeft() = NewNode;
+						currNode->setLeft(NewNode);
 						return;
 					}
 					else
@@ -166,24 +192,24 @@ inline void BinaryTree<T>::insert(T value)
 				else
 				{
 					//Set the currentNode's left to be the newNode.
-					currNode->getLeft() = NewNode;
+					currNode->setLeft(NewNode);
 					return;
 				}
 			}
 			//If the value is greater than the current node...
-			else if (value > currNode)
+			else if (value > currNode->getData())
 			{
 				//If the current node has a right...
 				if (currNode->hasRight())
 				{
 					//If the value is less than the current node's right value
-					if (value < currNode->getRight()->getData)
+					if (value < currNode->getRight()->getData())
 					{
 						//Set the new node's right to equal the current nodes right
-						NewNode->getRight() = currNode->getRight();
+						NewNode->setRight(currNode->getRight());
 
 						//Set the current nodes right to be the new node
-						currNode->getRight() = NewNode;
+						currNode->setRight(NewNode);
 						return;
 					}
 					//else...
@@ -197,7 +223,7 @@ inline void BinaryTree<T>::insert(T value)
 				else
 				{
 					//Set the currentNode's right to be the newNode.
-					currNode->getRight() = NewNode;
+					currNode->setRight(NewNode);
 					return;
 				}
 			}
@@ -211,14 +237,34 @@ inline void BinaryTree<T>::remove(T value)
 {
 	if (!isEmpty())
 	{
+		TreeNode<T>* nodeToDelete = nullptr;
+		TreeNode<T>* parentNode = nullptr;
 
+		if (findNode(value, nodeToDelete, parentNode))
+		{
+			if (nodeToDelete->hasLeft() && nodeToDelete->hasRight())
+			{
+
+			}
+			else if (nodeToDelete->hasLeft() || nodeToDelete->hasRight())
+			{
+				if (nodeToDelete->hasLeft())
+				{
+
+				}
+			}
+			else
+			{
+
+			}
+		}
 	}
 }
 
 template<typename T>
 inline TreeNode<T>* BinaryTree<T>::find(T value)
 {
-	if (!isEmpty)
+	if (!isEmpty())
 	{
 		TreeNode<T>* currentNode = m_root;
 
@@ -250,5 +296,5 @@ inline TreeNode<T>* BinaryTree<T>::find(T value)
 template<typename T>
 inline void BinaryTree<T>::draw(TreeNode<T>* selected)
 {
-
+	draw(m_root, 400, 40, 400, selected);
 }
