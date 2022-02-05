@@ -74,7 +74,7 @@ inline bool BinaryTree<T>::findNode(T searchValue, TreeNode<T>*& nodeFound, Tree
 			else if (searchValue < currNode->getData())
 			{
 				nodeParent = currNode;
-				currNode = currNode->getLeft()
+				currNode = currNode->getLeft(); 
 			}
 			else if (searchValue > currNode->getData())
 			{
@@ -244,18 +244,85 @@ inline void BinaryTree<T>::remove(T value)
 		{
 			if (nodeToDelete->hasLeft() && nodeToDelete->hasRight())
 			{
+				TreeNode<T>* currNode = nodeToDelete->getRight();
 
+				while (currNode != nullptr)
+				{
+					if (currNode->hasLeft())
+					{
+						if (currNode->getLeft()->getData() < nodeToDelete->getData())
+						{
+							nodeToDelete->setData(currNode->getLeft()->getData());
+
+							//If the current node's left has a left..
+							if (currNode->getLeft()->hasLeft())
+							{
+								nodeToDelete = currNode->getLeft();
+								currNode->setLeft(currNode->getLeft()->getLeft());
+								delete nodeToDelete;
+							}
+							else
+							{
+								delete currNode->getLeft();
+								currNode->setLeft(nullptr);
+							}
+						}
+						else
+						{
+							currNode = currNode->getLeft();
+						}
+					}
+					else
+					{
+						return;
+					}
+				}
 			}
 			else if (nodeToDelete->hasLeft() || nodeToDelete->hasRight())
 			{
 				if (nodeToDelete->hasLeft())
 				{
-
+					if (nodeToDelete->getData() > parentNode->getData())
+					{
+						parentNode->setRight(nodeToDelete->getLeft());
+						nodeToDelete->setLeft(nullptr);
+						delete nodeToDelete;
+					}
+					else if (nodeToDelete->getData() < parentNode->getData())
+					{
+						parentNode->setLeft(nodeToDelete->getLeft());
+						nodeToDelete->setLeft(nullptr);
+						delete nodeToDelete;
+					}
+				}
+				else if (nodeToDelete->hasRight())
+				{
+					if (nodeToDelete->getData() > parentNode->getData())
+					{
+						parentNode->setRight(nodeToDelete->getRight());
+						nodeToDelete->setRight(nullptr);
+						delete nodeToDelete;
+					}
+					else if (nodeToDelete->getData() < parentNode->getData())
+					{
+						parentNode->setLeft(nodeToDelete->getRight());
+						nodeToDelete->setRight(nullptr);
+						delete nodeToDelete;
+					}
 				}
 			}
 			else
 			{
-
+				if (nodeToDelete->getData() < parentNode->getData())
+				{
+					delete nodeToDelete;
+					parentNode->setLeft(nullptr);
+				}
+				else if (nodeToDelete->getData() < parentNode->getData())
+				{
+					delete nodeToDelete;
+					parentNode->setRight(nullptr);
+				}
 			}
 		}
 	}
