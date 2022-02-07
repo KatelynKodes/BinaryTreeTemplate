@@ -200,6 +200,10 @@ inline void BinaryTree<T>::insert(T value)
 					return;
 				}
 			}
+			else if (value == currNode->getData())
+			{
+				return;
+			}
 		}
 		
 	}
@@ -218,17 +222,45 @@ inline void BinaryTree<T>::remove(T value)
 			if (nodeToDelete->hasLeft() && nodeToDelete->hasRight())
 			{
 				TreeNode<T>* currNode = nodeToDelete->getRight();
+				parentNode = nodeToDelete;
 
 				while (currNode != nullptr)
 				{
 					if (currNode->hasLeft())
 					{
+						parentNode = currNode;
 						currNode = currNode->getLeft();
 					}
 					else
 					{
 						nodeToDelete->setData(currNode->getData());
-						delete currNode;
+
+						if (currNode == nodeToDelete->getRight())
+						{
+							if (!currNode->hasRight())
+							{
+								nodeToDelete->setRight(nullptr);
+							}
+							else
+							{
+								nodeToDelete->setRight(currNode->getRight());
+							}
+
+							delete currNode;
+						}
+						else
+						{
+							if (currNode->hasRight())
+							{
+								parentNode->setLeft(currNode->getRight());
+							}
+							else
+							{
+								parentNode->setLeft(nullptr);
+								delete currNode;
+							}
+						}
+
 						return;
 					}
 				}
@@ -268,12 +300,17 @@ inline void BinaryTree<T>::remove(T value)
 			}
 			else
 			{
-				if (nodeToDelete->getData() < parentNode->getData())
+				if (nodeToDelete == m_root)
+				{
+					delete nodeToDelete;
+					m_root = nullptr;
+				}
+				else if (nodeToDelete->getData() < parentNode->getData())
 				{
 					delete nodeToDelete;
 					parentNode->setLeft(nullptr);
 				}
-				else if (nodeToDelete->getData() < parentNode->getData())
+				else if (nodeToDelete->getData() > parentNode->getData())
 				{
 					delete nodeToDelete;
 					parentNode->setRight(nullptr);

@@ -47,6 +47,7 @@ int main(int argc, char* argv[])
         {
             // Implement the code to remove the node with value = valueBoxValue from your binary tree here! 
             binaryTree.remove(valueBoxValue);
+            selectedNode = binaryTree.find(valueBoxValue);
         }
 
         // draw the binary tree
