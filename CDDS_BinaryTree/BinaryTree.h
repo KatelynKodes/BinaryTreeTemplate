@@ -110,14 +110,14 @@ inline void BinaryTree<T>::draw(TreeNode<T>* currentNode, int x, int y, int hori
 		if (currentNode->hasRight())
 		{
 			//Draws a line between the right child and the current node
-			DrawLine(x, y, x - horizontalSpacing, y + 80, RED);
+			DrawLine(x, y, x + horizontalSpacing, y + 80, RED);
 
-			//Draws the left child
-			draw(currentNode->getLeft(), x - horizontalSpacing, y + 80, horizontalSpacing, selected);
+			//Draws the right child
+			draw(currentNode->getRight(), x + horizontalSpacing, y + 80, horizontalSpacing, selected);
 		}
-	}
 
-	currentNode->draw(x, y, (selected == currentNode));
+		currentNode->draw(x, y, (selected == currentNode));
+	}
 }
 
 template<typename T>
@@ -172,21 +172,8 @@ inline void BinaryTree<T>::insert(T value)
 				//If the current node has a left...
 				if (currNode->hasLeft())
 				{
-					//If the value is greater than the current node's left value
-					if (value > currNode->getLeft()->getData())
-					{
-						//Set the newNode's left to be equal to the current Node's left
-						NewNode->setLeft(currNode->getLeft());
-
-						//Then set the current Node's left to be the NewNode.
-						currNode->setLeft(NewNode);
-						return;
-					}
-					else
-					{
-						//set the current Node to be the current node's left.
-						currNode = currNode->getLeft();
-					}
+					//set the current Node to be the current node's left.
+					currNode = currNode->getLeft();
 				}
 				// Else...
 				else
@@ -202,22 +189,8 @@ inline void BinaryTree<T>::insert(T value)
 				//If the current node has a right...
 				if (currNode->hasRight())
 				{
-					//If the value is less than the current node's right value
-					if (value < currNode->getRight()->getData())
-					{
-						//Set the new node's right to equal the current nodes right
-						NewNode->setRight(currNode->getRight());
-
-						//Set the current nodes right to be the new node
-						currNode->setRight(NewNode);
-						return;
-					}
-					//else...
-					else
-					{
-						// set the current node to equal the current nodes right
-						currNode = currNode->getRight();
-					}
+					// set the current node to equal the current nodes right
+					currNode = currNode->getRight();
 				}
 				// Else...
 				else
@@ -250,30 +223,12 @@ inline void BinaryTree<T>::remove(T value)
 				{
 					if (currNode->hasLeft())
 					{
-						if (currNode->getLeft()->getData() < nodeToDelete->getData())
-						{
-							nodeToDelete->setData(currNode->getLeft()->getData());
-
-							//If the current node's left has a left..
-							if (currNode->getLeft()->hasLeft())
-							{
-								nodeToDelete = currNode->getLeft();
-								currNode->setLeft(currNode->getLeft()->getLeft());
-								delete nodeToDelete;
-							}
-							else
-							{
-								delete currNode->getLeft();
-								currNode->setLeft(nullptr);
-							}
-						}
-						else
-						{
-							currNode = currNode->getLeft();
-						}
+						currNode = currNode->getLeft();
 					}
 					else
 					{
+						nodeToDelete->setData(currNode->getData());
+						delete currNode;
 						return;
 					}
 				}
