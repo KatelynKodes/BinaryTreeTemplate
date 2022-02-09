@@ -269,7 +269,11 @@ inline void BinaryTree<T>::remove(T value)
 			{
 				if (nodeToDelete->hasLeft())
 				{
-					if (nodeToDelete->getData() > parentNode->getData())
+					if (nodeToDelete == m_root)
+					{
+						m_root = nodeToDelete->getLeft();
+					}
+					else if (nodeToDelete->getData() > parentNode->getData())
 					{
 						parentNode->setRight(nodeToDelete->getLeft());
 						nodeToDelete->setLeft(nullptr);
@@ -284,7 +288,11 @@ inline void BinaryTree<T>::remove(T value)
 				}
 				else if (nodeToDelete->hasRight())
 				{
-					if (nodeToDelete->getData() > parentNode->getData())
+					if (nodeToDelete == m_root)
+					{
+						m_root = nodeToDelete->getRight();
+					}
+					else if (nodeToDelete->getData() > parentNode->getData())
 					{
 						parentNode->setRight(nodeToDelete->getRight());
 						nodeToDelete->setRight(nullptr);
