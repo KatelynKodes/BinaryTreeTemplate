@@ -25,10 +25,16 @@ tree
     - 'Remove button': When pressed, removes the value inside the value box from the binary tree.
 
 3. **Output Information**
-
-    - 
+    - When a user inputs an integer into the value box, this value is stored in an integer value named "valueBoxValue", depending on whether the "insert" or "remove" button is pressed, the integer inputted into valueBoxValue is either placed into the binary tree using a TreeNode or the Node containing the value of the integer inputted into valueBoxValue is removed from the binary tree.
 
 4. **User Interface Information**
+    - If there are Nodes inserted into the Binary tree, the UI on the program displays circles containing integers inside connected to each other with a series of red lines. The first node at the very top being the root node, all the nodes on the root node's left are less than the root node, and the nodes connected to the root node's right are greater than the root node. One of the nodes is colored green rather than black, to indicate that the node is selected. A node is selected every time a new node is inserted and set as the selected node, or if the user tries to insert an already existing node.
+
+### Inputting number in value box
+
+### Inserting a node
+
+### Removing a node
 
 ## II. Design
 1. _System Architecture_
