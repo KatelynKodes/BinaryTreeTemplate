@@ -2,7 +2,7 @@
 | :---          	|
 | S218002   |
 |Code Design and Data Structures|
-|   Graphical Test Application|
+|   Binary Tree Test Application|
 
 ## I. Requirements
 
@@ -38,6 +38,10 @@ tree
 
 ## II. Design
 1. _System Architecture_
+    
+    In the binary tree, all values are stored in a class called TreeNodes, this treenode class holds 3 private variables, m_value, m_left, m_right. The m_value is the value the node itself is storing, the m_left variable is a TreeNode pointer pointing to the treenode that is on the node's lefhand side and the m_right variable is a treeNode pointer that points to the node on the righthand side. Since these variables are private they are accessed through getter and setter methods that are public and allow these variables to be changed and read. There are also booleans checking if a node even contains a right or a left value in the first place. Lastly, a draw function is present to draw a node if needed.
+    
+    All of the Binary tree is stored in the root Node in the sense that the root node is how the BinaryTree class accesses the nodes after the root node. The binary tree iterates through the nodes by having a tree node variable (often called "currNode") set to the root, then as long as the current node does not reach a null pointer, the current node is set to either the current node's right or the current node's left depending on the situation. The binary tree is able to insert and delete nodes into the tree as the user inputs values into the value box and is also able to find a select node. 
 
 2. _Object Information_
 
