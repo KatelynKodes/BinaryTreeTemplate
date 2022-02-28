@@ -129,6 +129,10 @@ inline BinaryTree<T>::BinaryTree()
 template<typename T>
 inline BinaryTree<T>::~BinaryTree()
 {
+	while (!isEmpty())
+	{
+		remove(m_root->getData());
+	}
 }
 
 template<typename T>
